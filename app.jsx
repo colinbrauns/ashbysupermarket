@@ -62,6 +62,19 @@ function App() {
 
   useEffect(() => { applyPalette(t.palette); }, [t.palette]);
   useEffect(() => { applyDisplay(t.display); }, [t.display]);
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash.slice(1);
+      if (!id) return;
+      const scroll = () => document.getElementById(decodeURIComponent(id))?.scrollIntoView({ block: "start" });
+      window.requestAnimationFrame(scroll);
+      window.setTimeout(scroll, 250);
+      document.fonts?.ready?.then(scroll);
+    };
+    scrollToHash();
+    window.addEventListener("hashchange", scrollToHash);
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, []);
 
   return (
     <div style={{ position: "relative", zIndex: 1 }}>

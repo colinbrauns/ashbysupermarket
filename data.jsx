@@ -2,23 +2,43 @@
 const STORE = {
   name: "Ashby Super Market",
   est: 2009, // approximate — "over a decade" per listings
+  url: "https://ashbysupermarket.com/",
   address: "2948 Martin Luther King Jr Way",
   cityLine: "Berkeley, California 94703",
   neighborhood: "South Berkeley",
   cross: "Across from Ashby BART",
   phone: "(510) 647-3672",
-  hoursLine: "Open daily · 8 AM – 9 PM",
+  phoneTel: "+15106473672",
+  hoursLine: "Open daily · call to confirm",
   domain: "ashbysupermarket.com",
   instagram: "@ashbysupermarket",
+  mapsUrl: "https://maps.app.goo.gl/CaLkuAG8eCPEsbvp9",
+  yelpUrl: "https://www.yelp.com/biz/ashby-super-market-berkeley",
 };
 
+const ORDER_LINKS = [
+  { name: "DoorDash", href: "https://www.doordash.com/store/ashby-super-market-berkeley-1272966/", note: "Delivery + pickup" },
+  { name: "Uber Eats", href: "https://www.ubereats.com/store/ashby-super-market/ySHmgI3tW-aAUeIDgGE0iQ", note: "Delivery availability varies" },
+  { name: "Postmates", href: "https://postmates.com/store/ashby-super-market/ySHmgI3tW-aAUeIDgGE0iQ", note: "Delivery availability varies" },
+  { name: "Grubhub", href: "https://www.grubhub.com/restaurant/ashby-super-market-2948-martin-luther-king-jr-way-berkeley/2691960", note: "Delivery + pickup" },
+  { name: "Mercato", href: "https://www.mercato.com/shop/ashby-supermarket", note: "Groceries" },
+];
+
 const SANDWICHES = [
-  { n: "01", name: "The Ashby", price: "10.99", desc: "Boar's Head cracked peppermill turkey, provolone, avocado, tomato, mayo · focaccia", tag: "house" },
-  { n: "02", name: "MLK Roast Beef", price: "10.99", desc: "Deluxe roast beef, pepperjack, tomato, onion, lettuce · soft roll", tag: "hot" },
-  { n: "03", name: "Falafel Wrap", price: "9.49", desc: "Three falafel, hummus, salad, sriracha (if you dare), olive oil, spice · pita", tag: "veg" },
-  { n: "04", name: "Salami Stack", price: "9.99", desc: "Genoa salami, sharp provolone, pepperoncini, oil & vinegar · ciabatta", tag: "cold" },
-  { n: "05", name: "Cheddar Custom", price: "from 8.50", desc: "Build it your way. Pick the meat, the cheese, the bread, the works.", tag: "byo" },
-  { n: "06", name: "Hummus & Veg", price: "8.49", desc: "House hummus, cucumber, tomato, sprouts, olives, lemon · whole wheat", tag: "veg" },
+  { n: "01", name: "California Dreaming", price: "from $13.99", desc: "Boar's Head cracked pepper turkey, provolone, avocado, tomato, mayo · focaccia", tag: "house" },
+  { n: "02", name: "Roast Beef Hero", price: "from $13.99", desc: "Boar's Head deluxe roast beef, pepperjack, tomato, onion, lettuce · roll", tag: "hot" },
+  { n: "03", name: "Classic Pastrami", price: "from $13.99", desc: "Boar's Head pastrami, Swiss, mustard · rye", tag: "hot" },
+  { n: "04", name: "Cracked Pepper Turkey Reuben", price: "from $13.99", desc: "Cracked pepper turkey, Swiss, Reuben-style build · rye", tag: "hot" },
+  { n: "05", name: "Tuna Melt", price: "from $13.99", desc: "Fresh tuna salad, your choice of bread, toppings, and cheese", tag: "hot" },
+  { n: "06", name: "Self Created Sandwich", price: "from $13.99", desc: "Build it your way. Pick the meat, the cheese, the bread, and the works.", tag: "byo" },
+  { n: "07", name: "Falafel Wrap", price: "from $9.99", desc: "Three falafel, hummus, salad, sriracha if selected, olive oil, spice · pita", tag: "veg" },
+];
+
+const BUILD_OPTIONS = [
+  { label: "Bread", items: ["Focaccia", "Rye", "Soft roll", "Whole wheat", "Wrap"] },
+  { label: "Protein", items: ["Turkey", "Roast beef", "Pastrami", "Salami", "Tuna", "Falafel"] },
+  { label: "Cheese", items: ["Provolone", "Swiss", "Pepperjack", "Cheddar"] },
+  { label: "Toppings", items: ["Avocado", "Tomato", "Onion", "Lettuce", "Mustard", "Mayo", "Sriracha"] },
 ];
 
 const AISLES = [
@@ -49,13 +69,13 @@ const REVIEWS = [
 ];
 
 const HOURS = [
-  ["Mon", "8:00 — 9:00"],
-  ["Tue", "8:00 — 9:00"],
-  ["Wed", "8:00 — 9:00"],
-  ["Thu", "8:00 — 9:00"],
-  ["Fri", "8:00 — 9:00"],
-  ["Sat", "8:00 — 9:00"],
-  ["Sun", "8:00 — 9:00"],
+  ["Mon", "Call to confirm"],
+  ["Tue", "Call to confirm"],
+  ["Wed", "Call to confirm"],
+  ["Thu", "Call to confirm"],
+  ["Fri", "Call to confirm"],
+  ["Sat", "Call to confirm"],
+  ["Sun", "Call to confirm"],
 ];
 
-Object.assign(window, { STORE, SANDWICHES, AISLES, FEATURES, REVIEWS, HOURS });
+Object.assign(window, { STORE, ORDER_LINKS, SANDWICHES, BUILD_OPTIONS, AISLES, FEATURES, REVIEWS, HOURS });

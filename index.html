@@ -3,10 +3,78 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Ashby Super Market — South Berkeley</title>
+<title>Ashby Super Market | Deli, Groceries & Boba near Ashby BART</title>
+<meta name="description" content="Family-run South Berkeley corner store across from Ashby BART with Boar's Head deli sandwiches, groceries, boba, lottery, organic basics, and delivery links." />
+<link rel="canonical" href="https://ashbysupermarket.com/" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#F2EAD9" />
+<meta name="format-detection" content="telephone=yes" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Ashby Super Market" />
+<meta property="og:title" content="Ashby Super Market" />
+<meta property="og:description" content="Family-run South Berkeley market with deli sandwiches, groceries, boba, lottery, and delivery near Ashby BART." />
+<meta property="og:url" content="https://ashbysupermarket.com/" />
+<meta property="og:image" content="https://ashbysupermarket.com/og-image.svg" />
+<meta property="og:image:type" content="image/svg+xml" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ashby Super Market" />
+<meta name="twitter:description" content="Deli sandwiches, groceries, boba, lottery, and delivery near Ashby BART." />
+<meta name="twitter:image" content="https://ashbysupermarket.com/og-image.svg" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="/site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Hanken+Grotesk:wght@300..900&family=JetBrains+Mono:wght@300..700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["GroceryStore", "ConvenienceStore"],
+  "@id": "https://ashbysupermarket.com/#store",
+  "name": "Ashby Super Market",
+  "url": "https://ashbysupermarket.com/",
+  "telephone": "+15106473672",
+  "priceRange": "$$",
+  "foundingDate": "2009",
+  "description": "Family-run South Berkeley corner store across from Ashby BART with Boar's Head deli sandwiches, groceries, boba, lottery, organic basics, and delivery links.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2948 Martin Luther King Jr Way",
+    "addressLocality": "Berkeley",
+    "addressRegion": "CA",
+    "postalCode": "94703",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "South Berkeley"
+  },
+  "sameAs": [
+    "https://www.instagram.com/ashbysupermarket/",
+    "https://www.yelp.com/biz/ashby-super-market-berkeley"
+  ],
+  "hasMap": "https://maps.app.goo.gl/CaLkuAG8eCPEsbvp9",
+  "servesCuisine": ["Deli sandwiches", "Boba", "Groceries"],
+  "potentialAction": [
+    {
+      "@type": "OrderAction",
+      "target": "https://www.doordash.com/store/ashby-super-market-berkeley-1272966/"
+    },
+    {
+      "@type": "OrderAction",
+      "target": "https://www.ubereats.com/store/ashby-super-market/ySHmgI3tW-aAUeIDgGE0iQ"
+    },
+    {
+      "@type": "OrderAction",
+      "target": "https://www.grubhub.com/restaurant/ashby-super-market-2948-martin-luther-king-jr-way-berkeley/2691960"
+    },
+    {
+      "@type": "OrderAction",
+      "target": "https://www.mercato.com/shop/ashby-supermarket"
+    }
+  ]
+}
+</script>
 
 <script>
   // Environment fix: window.Map.prototype is stripped (probably by a host instrumentation script).
@@ -51,6 +119,7 @@
     --body: "Hanken Grotesk", system-ui, sans-serif;
     --mono: "JetBrains Mono", "DM Mono", ui-monospace, monospace;
   }
+  html { scroll-behavior: smooth; }
   html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); }
   body {
     font-family: var(--body);
@@ -62,6 +131,10 @@
   }
   * { box-sizing: border-box; }
   a { color: inherit; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--tomato);
+    outline-offset: 3px;
+  }
   ::selection { background: var(--tomato); color: var(--paper); }
 
   /* paper texture */
@@ -83,9 +156,23 @@
   /* shared rule */
   .hr-thick { height: 2px; background: var(--ink); border: 0; }
   .hr-thin { height: 1px; background: var(--ink); border: 0; opacity: 0.6; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
 </style>
 </head>
 <body>
+  <noscript>
+    <div style="padding:16px;font-family:system-ui,sans-serif;background:#1A1714;color:#F2EAD9">
+      Ashby Super Market is at 2948 Martin Luther King Jr Way, Berkeley, CA 94703. Call (510) 647-3672 for hours and sandwich orders.
+    </div>
+  </noscript>
   <div id="root"></div>
 
   <script>

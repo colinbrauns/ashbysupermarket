@@ -27,6 +27,10 @@ The `.nojekyll` file is included so GitHub Pages serves files starting with `_` 
 | `sections.jsx` | Sandwiches, aisles, visit, reviews, family, footer |
 | `app.jsx` | Root + Tweaks panel wiring |
 | `tweaks-panel.jsx` | Floating tweaks controls (palette / font / sticker) |
+| `CNAME` | Custom domain for GitHub Pages |
+| `robots.txt` / `sitemap.xml` | Search crawler hints |
+| `favicon.svg` / `og-image.svg` | Browser icon and social preview artwork |
+| `404.html` | Lightweight not-found page |
 
 ## Editing
 

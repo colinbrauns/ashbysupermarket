@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#F2EAD9"/>
+  <rect x="48" y="48" width="1104" height="534" fill="none" stroke="#1A1714" stroke-width="4"/>
+  <line x1="48" y1="148" x2="1152" y2="148" stroke="#1A1714" stroke-width="2"/>
+  <text x="80" y="115" font-family="Georgia, serif" font-size="54" font-style="italic" fill="#1A1714">Ashby Super Market</text>
+  <text x="80" y="244" font-family="Georgia, serif" font-size="104" fill="#1A1714">Sandwiches,</text>
+  <text x="80" y="354" font-family="Georgia, serif" font-size="104" font-style="italic" fill="#D24B3A">sodas</text>
+  <text x="390" y="354" font-family="Georgia, serif" font-size="104" fill="#1A1714">, groceries.</text>
+  <text x="80" y="456" font-family="Arial, sans-serif" font-size="32" letter-spacing="3" fill="#4A413A">2948 MARTIN LUTHER KING JR WAY · BERKELEY</text>
+  <text x="80" y="510" font-family="Arial, sans-serif" font-size="28" letter-spacing="3" fill="#4A413A">DELI · BOBA · LOTTERY · ORGANIC BASICS · DELIVERY</text>
+  <circle cx="1010" cy="316" r="96" fill="#D24B3A"/>
+  <circle cx="1010" cy="316" r="55" fill="#F2EAD9"/>
+  <text x="1010" y="306" text-anchor="middle" font-family="Georgia, serif" font-size="28" font-style="italic" fill="#1A1714">since</text>
+  <text x="1010" y="345" text-anchor="middle" font-family="Georgia, serif" font-size="44" fill="#1A1714">2009</text>
+</svg>

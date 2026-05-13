@@ -1,4 +1,4 @@
-/* global React, SANDWICHES, AISLES, REVIEWS, HOURS, STORE, pillBtn */
+/* global React, SANDWICHES, BUILD_OPTIONS, AISLES, REVIEWS, HOURS, STORE, ORDER_LINKS, pillBtn */
 const { useState, useEffect } = React;
 
 function useMediaQuery(query) {
@@ -77,7 +77,7 @@ function Sandwiches() {
                   borderRight: isMobile || right ? "none" : "1px solid rgba(242,234,217,0.25)",
                   borderBottom: isMobile ? (i < SANDWICHES.length - 1 ? "1px solid rgba(242,234,217,0.25)" : "none") : (i < SANDWICHES.length - 2 ? "1px solid rgba(242,234,217,0.25)" : "none"),
                   display: "grid",
-                  gridTemplateColumns: isMobile ? "34px minmax(0, 1fr) auto" : "48px 1fr auto",
+                  gridTemplateColumns: isMobile ? "34px minmax(0, 1fr)" : "48px 1fr auto",
                   gap: isMobile ? 12 : 18,
                   alignItems: "start",
                   background: hover === i ? "rgba(210,75,58,0.08)" : "transparent",
@@ -102,10 +102,12 @@ function Sandwiches() {
                   fontFamily: "var(--mono)",
                   fontSize: 14,
                   whiteSpace: "nowrap",
-                  paddingTop: 8,
+                  paddingTop: isMobile ? 0 : 8,
                   color: "var(--tomato)",
+                  gridColumn: isMobile ? "2" : "auto",
+                  gridRow: isMobile ? "2" : "auto",
                 }}>
-                  ${s.price}
+                  {s.price}
                 </div>
               </div>
             );
@@ -126,13 +128,69 @@ function Sandwiches() {
           <div style={{ fontFamily: "var(--display)", fontSize: isMobile ? 21 : 22, fontStyle: "italic" }}>
             Don't see what you want? Tell us. We build custom.
           </div>
-          <a href={`tel:${STORE.phone.replace(/\D/g, "")}`} style={{
+          <a href={`tel:${STORE.phoneTel}`} style={{
             ...pillBtn(true),
             background: "var(--tomato)",
             borderColor: "var(--tomato)",
           }}>
             Call to order · {STORE.phone}
           </a>
+        </div>
+
+        <div id="order" style={{
+          scrollMarginTop: isMobile ? 120 : 80,
+          marginTop: 18,
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1.1fr",
+          gap: 18,
+        }}>
+          <div style={{
+            padding: isMobile ? "18px 16px" : "22px 24px",
+            border: "1px solid rgba(242,234,217,0.25)",
+          }}>
+            <div className="mono upper" style={{ fontSize: 11, opacity: 0.6, marginBottom: 10 }}>Build your own</div>
+            <div style={{ display: "grid", gap: 12 }}>
+              {BUILD_OPTIONS.map(group => (
+                <div key={group.label}>
+                  <div style={{ fontFamily: "var(--display)", fontSize: 22, lineHeight: 1.1, marginBottom: 4 }}>
+                    {group.label}
+                  </div>
+                  <div className="mono" style={{ fontSize: 12, lineHeight: 1.55, opacity: 0.72 }}>
+                    {group.items.join(" · ")}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{
+            padding: isMobile ? "18px 16px" : "22px 24px",
+            border: "1px solid rgba(242,234,217,0.25)",
+            background: "rgba(242,234,217,0.04)",
+          }}>
+            <div className="mono upper" style={{ fontSize: 11, opacity: 0.6, marginBottom: 10 }}>Order online</div>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))",
+              gap: 10,
+            }}>
+              {ORDER_LINKS.map(link => (
+                <a key={link.name} href={link.href} target="_blank" rel="noopener" style={{
+                  color: "var(--paper)",
+                  textDecoration: "none",
+                  border: "1px solid rgba(242,234,217,0.25)",
+                  padding: "12px 14px",
+                  minHeight: 72,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}>
+                  <span style={{ fontFamily: "var(--display)", fontSize: 23, lineHeight: 1 }}>{link.name} ↗</span>
+                  <span className="mono upper" style={{ fontSize: 9, letterSpacing: "0.08em", opacity: 0.58 }}>{link.note}</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -306,7 +364,7 @@ function Visit() {
               Ashby BART, 1-min walk.<br />
               AC Transit 18 + F lines.
             </div>
-            <a href="https://maps.app.goo.gl/CaLkuAG8eCPEsbvp9" target="_blank" rel="noopener" style={{
+            <a href={STORE.mapsUrl} target="_blank" rel="noopener" style={{
               ...pillBtn(true),
               marginTop: 22,
               background: "var(--tomato)",
@@ -353,15 +411,17 @@ function Visit() {
             </table>
             <div className="mono upper" style={{ fontSize: 11, marginBottom: 6 }}>Order online</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-              {["DoorDash", "Grubhub", "Postmates", "Mercato"].map(s => (
-                <div key={s} style={{
+              {ORDER_LINKS.map(link => (
+                <a key={link.name} href={link.href} target="_blank" rel="noopener" style={{
+                  color: "inherit",
+                  textDecoration: "none",
                   fontFamily: "var(--mono)", fontSize: 12,
                   display: "flex", justifyContent: "space-between",
                   borderBottom: "1px dashed rgba(26,23,20,0.2)",
                   paddingBottom: 4,
                 }}>
-                  <span>{s}</span><span style={{ opacity: 0.5 }}>↗</span>
-                </div>
+                  <span>{link.name}</span><span style={{ opacity: 0.5 }}>↗</span>
+                </a>
               ))}
             </div>
           </div>
@@ -644,26 +704,27 @@ function Footer() {
         }}>
           <div>
             <div className="mono upper" style={{ fontSize: 10, opacity: 0.55, marginBottom: 10 }}>Address</div>
-            <div style={{ fontSize: 14, lineHeight: 1.5 }}>
+            <a href={STORE.mapsUrl} target="_blank" rel="noopener" style={{ display: "block", color: "inherit", fontSize: 14, lineHeight: 1.5 }}>
               {STORE.address}<br />{STORE.cityLine}
-            </div>
+            </a>
           </div>
           <div>
             <div className="mono upper" style={{ fontSize: 10, opacity: 0.55, marginBottom: 10 }}>Hours</div>
             <div style={{ fontSize: 14, lineHeight: 1.5 }}>
-              Every day<br />8 AM — 9 PM
+              Open daily<br />Call to confirm
             </div>
           </div>
           <div>
             <div className="mono upper" style={{ fontSize: 10, opacity: 0.55, marginBottom: 10 }}>Phone</div>
-            <div style={{ fontSize: 14, lineHeight: 1.5 }}>{STORE.phone}</div>
+            <a href={`tel:${STORE.phoneTel}`} style={{ color: "inherit", fontSize: 14, lineHeight: 1.5 }}>{STORE.phone}</a>
           </div>
           <div>
             <div className="mono upper" style={{ fontSize: 10, opacity: 0.55, marginBottom: 10 }}>Elsewhere</div>
             <div style={{ fontSize: 14, lineHeight: 1.7 }}>
               <a href={`https://instagram.com/${STORE.instagram.replace('@','')}`} target="_blank" rel="noopener" style={{ display: "block" }}>Instagram ↗</a>
-              <a href="https://maps.app.goo.gl/CaLkuAG8eCPEsbvp9" target="_blank" rel="noopener" style={{ display: "block" }}>Google Maps ↗</a>
-              <a href="https://www.yelp.com/biz/ashby-super-market-berkeley" target="_blank" rel="noopener" style={{ display: "block" }}>Yelp ↗</a>
+              <a href={STORE.mapsUrl} target="_blank" rel="noopener" style={{ display: "block" }}>Google Maps ↗</a>
+              <a href={STORE.yelpUrl} target="_blank" rel="noopener" style={{ display: "block" }}>Yelp ↗</a>
+              <a href="#order" style={{ display: "block" }}>Order online</a>
             </div>
           </div>
         </div>

@@ -18,8 +18,9 @@ function useMediaQuery(query) {
 
 // ── Top marquee bar ──────────────────────────────────────────────
 function Marquee() {
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const bits = [
-    "Open daily 8 AM – 9 PM",
+    "Open daily, call to confirm",
     "Sandwiches made to order",
     "Boba stand now serving",
     "We sell lottery tickets",
@@ -47,7 +48,7 @@ function Marquee() {
         fontSize: 12,
         textTransform: "uppercase",
         letterSpacing: "0.14em",
-        animation: "scroll 60s linear infinite",
+        animation: reduceMotion ? "none" : "scroll 60s linear infinite",
       }}>
         {all.map((b, i) => (
           <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 48 }}>
@@ -124,7 +125,7 @@ function Nav() {
             </li>
           ))}
           <li>
-            <a href="#visit" style={{
+            <a href="#order" style={{
               textDecoration: "none",
               background: "var(--ink)",
               color: "var(--paper)",
@@ -189,7 +190,7 @@ function Hero({ sticker }) {
           flexWrap: "wrap",
         }}>
           <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 999, background: "var(--tomato)" }}></span>
-          Open right now · until 9 PM
+          Deli · groceries · boba · lottery
         </div>
 
         <h1 style={{
@@ -237,11 +238,12 @@ function Hero({ sticker }) {
           <div>
             <div className="mono upper" style={{ fontSize: 11, opacity: 0.65, marginBottom: 8 }}>Today</div>
             <div style={{ fontFamily: "var(--display)", fontSize: 22, lineHeight: 1.3 }}>
-              8:00 AM — 9:00 PM<br />
-              <span style={{ fontStyle: "italic", color: "var(--olive)" }}>Every day. Really.</span>
+              Call to confirm hours<br />
+              <span style={{ fontStyle: "italic", color: "var(--olive)" }}>Delivery windows vary.</span>
             </div>
             <div style={{ display: "flex", gap: 8, marginTop: 14, flexWrap: "wrap" }}>
               <a href="#sandwiches" style={pillBtn(true)}>See the deli menu →</a>
+              <a href={`tel:${STORE.phoneTel}`} style={pillBtn(false)}>Call now</a>
               <a href="#visit" style={pillBtn(false)}>Directions</a>
             </div>
           </div>
