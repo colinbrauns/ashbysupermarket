@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ashby Super Market — South Berkeley</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Hanken+Grotesk:wght@300..900&family=JetBrains+Mono:wght@300..700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script>
+  // Environment fix: window.Map.prototype is stripped (probably by a host instrumentation script).
+  // The stripping happens AFTER our initial script runs, so apply unconditionally — and again
+  // on DOMContentLoaded before Babel attempts to auto-transform <script type="text/babel"> tags.
+  function __applyIntrinsicsFix() {
+    let f = document.getElementById('__intrinsics_helper');
+    if (!f) {
+      f = document.createElement('iframe');
+      f.id = '__intrinsics_helper';
+      f.style.cssText = 'display:none;position:absolute;width:0;height:0;border:0';
+      (document.body || document.documentElement).appendChild(f);
+    }
+    if (f.contentWindow && typeof f.contentWindow.Map === 'function') {
+      window.Map = f.contentWindow.Map;
+      window.WeakMap = f.contentWindow.WeakMap;
+      window.Set = f.contentWindow.Set;
+      window.WeakSet = f.contentWindow.WeakSet;
+    }
+  }
+  __applyIntrinsicsFix();
+  // Re-apply right before Babel auto-runs (it transforms on DOMContentLoaded in capture phase).
+  document.addEventListener('DOMContentLoaded', __applyIntrinsicsFix, true);
+  // And once more in case the stripping happens later.
+  window.addEventListener('load', __applyIntrinsicsFix, true);
+</script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    --paper: #F2EAD9;
+    --paper-deep: #E8DEC6;
+    --ink: #1A1714;
+    --ink-soft: #4A413A;
+    --tomato: #D24B3A;
+    --olive: #6B7A3A;
+    --mustard: #D89B2C;
+    --line: #1A1714;
+    --display: "Instrument Serif", "Fraunces", Georgia, serif;
+    --body: "Hanken Grotesk", system-ui, sans-serif;
+    --mono: "JetBrains Mono", "DM Mono", ui-monospace, monospace;
+  }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); }
+  body {
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  * { box-sizing: border-box; }
+  a { color: inherit; }
+  ::selection { background: var(--tomato); color: var(--paper); }
+
+  /* paper texture */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(26,23,20,0.025) 0, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(26,23,20,0.02) 0, transparent 50%);
+    mix-blend-mode: multiply;
+  }
+
+  .mono { font-family: var(--mono); }
+  .serif { font-family: var(--display); }
+  .upper { text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* shared rule */
+  .hr-thick { height: 2px; background: var(--ink); border: 0; }
+  .hr-thin { height: 1px; background: var(--ink); border: 0; opacity: 0.6; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    window.__TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "palette": [
+        "#F2EAD9",
+        "#1A1714",
+        "#D24B3A",
+        "#6B7A3A"
+      ],
+      "display": "fraunces",
+      "heroVariant": "broadsheet",
+      "showSticker": true
+    }/*EDITMODE-END*/;
+  </script>
+
+  <script type="text/plain" data-babel src="tweaks-panel.jsx"></script>
+  <script type="text/plain" data-babel src="data.jsx"></script>
+  <script type="text/plain" data-babel src="components.jsx"></script>
+  <script type="text/plain" data-babel src="sections.jsx"></script>
+  <script type="text/plain" data-babel src="app.jsx"></script>
+
+  <script>
+    // Manual Babel loader: fetch each data-babel script, transform, execute. We do this instead
+    // of <script type="text/babel"> because the host's instrumentation strips Map.prototype
+    // methods, breaking Babel's auto-transform. We re-apply the intrinsics fix immediately
+    // before transforming.
+    (async function loadBabelScripts() {
+      __applyIntrinsicsFix();
+      const tags = Array.from(document.querySelectorAll('script[data-babel]'));
+      for (const tag of tags) {
+        __applyIntrinsicsFix();
+        let source;
+        try {
+          source = await fetch(tag.src).then(r => r.text());
+        } catch (e) {
+          console.error('failed to fetch', tag.src, e);
+          continue;
+        }
+        __applyIntrinsicsFix();
+        let compiled;
+        try {
+          compiled = Babel.transform(source, {
+            presets: ['react'],
+            filename: tag.src.split('/').pop(),
+          }).code;
+        } catch (e) {
+          console.error('babel error in', tag.src, e);
+          continue;
+        }
+        const s = document.createElement('script');
+        // Wrap in IIFE so top-level const/let in each file don't collide with siblings
+        // (these scripts all share global scope when injected as plain <script> tags).
+        s.textContent = '(function(){\n' + compiled + '\n})();\n//# sourceURL=' + tag.src;
+        document.body.appendChild(s);
+      }
+    })();
+  </script>
+</body>
+</html>
