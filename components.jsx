@@ -1,6 +1,21 @@
 /* global React */
 const { useState, useEffect, useRef } = React;
 
+function useMediaQuery(query) {
+  const getMatches = () => (typeof window === "undefined" ? false : window.matchMedia(query).matches);
+  const [matches, setMatches] = useState(getMatches);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const update = () => setMatches(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [query]);
+
+  return matches;
+}
+
 // ── Top marquee bar ──────────────────────────────────────────────
 function Marquee() {
   const bits = [
@@ -53,6 +68,7 @@ function Marquee() {
 // ── Top nav (sticky) ─────────────────────────────────────────────
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 760px)");
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -74,23 +90,33 @@ function Nav() {
     }}>
       <div style={{
         maxWidth: 1440, margin: "0 auto",
-        padding: "16px 40px",
-        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: isMobile ? "14px 16px 12px" : "16px 40px",
+        display: "flex",
+        flexDirection: isMobile ? "column" : "row",
+        alignItems: isMobile ? "stretch" : "center",
+        justifyContent: "space-between",
+        gap: isMobile ? 12 : 0,
       }}>
         <a href="#top" style={{
           fontFamily: "var(--display)",
-          fontSize: 22,
+          fontSize: isMobile ? 24 : 22,
           fontStyle: "italic",
           textDecoration: "none",
-          letterSpacing: "-0.01em",
+          letterSpacing: 0,
         }}>
           Ashby Super Market
         </a>
         <ul style={{
           listStyle: "none", margin: 0, padding: 0,
-          display: "flex", gap: 28,
-          fontFamily: "var(--mono)", fontSize: 12,
-          textTransform: "uppercase", letterSpacing: "0.12em",
+          display: "flex",
+          gap: isMobile ? "8px 14px" : 28,
+          flexWrap: isMobile ? "wrap" : "nowrap",
+          overflowX: "visible",
+          paddingBottom: isMobile ? 2 : 0,
+          width: isMobile ? "100%" : "auto",
+          fontFamily: "var(--mono)", fontSize: isMobile ? 11 : 12,
+          textTransform: "uppercase", letterSpacing: "0.08em",
+          whiteSpace: "nowrap",
         }}>
           {items.map(([label, href]) => (
             <li key={href}>
@@ -102,7 +128,7 @@ function Nav() {
               textDecoration: "none",
               background: "var(--ink)",
               color: "var(--paper)",
-              padding: "6px 12px",
+              padding: isMobile ? "5px 10px" : "6px 12px",
               borderRadius: 999,
             }}>Order →</a>
           </li>
@@ -114,43 +140,53 @@ function Nav() {
 
 // ── Hero — broadsheet layout ─────────────────────────────────────
 function Hero({ sticker }) {
+  const isMobile = useMediaQuery("(max-width: 760px)");
+  const isTiny = useMediaQuery("(max-width: 430px)");
   return (
-    <header id="top" style={{ position: "relative", padding: "32px 40px 0", maxWidth: 1440, margin: "0 auto" }}>
+    <header id="top" style={{ position: "relative", padding: isMobile ? "20px 16px 0" : "32px 40px 0", maxWidth: 1440, margin: "0 auto" }}>
       {/* masthead row */}
       <div style={{
-        display: "flex", justifyContent: "space-between", alignItems: "flex-end",
-        fontFamily: "var(--mono)", fontSize: 11,
-        textTransform: "uppercase", letterSpacing: "0.16em",
+        display: isMobile ? "grid" : "flex",
+        gridTemplateColumns: "1fr",
+        justifyContent: "space-between",
+        alignItems: isMobile ? "start" : "flex-end",
+        gap: isMobile ? 4 : 0,
+        fontFamily: "var(--mono)", fontSize: isMobile ? 10 : 11,
+        textTransform: "uppercase", letterSpacing: "0.08em",
         paddingBottom: 12,
       }}>
         <span>Vol. XVII · No. 04</span>
         <span>South Berkeley · Est. {STORE.est}</span>
-        <span>{STORE.domain}</span>
+        {!isMobile && <span>{STORE.domain}</span>}
       </div>
       <hr className="hr-thick" />
       <div style={{
-        display: "flex", justifyContent: "space-between",
+        display: isMobile ? "grid" : "flex",
+        gridTemplateColumns: "1fr",
+        gap: isMobile ? 4 : 0,
+        justifyContent: "space-between",
         fontFamily: "var(--mono)", fontSize: 10,
-        textTransform: "uppercase", letterSpacing: "0.18em",
-        padding: "6px 0",
+        textTransform: "uppercase", letterSpacing: "0.08em",
+        padding: isMobile ? "8px 0" : "6px 0",
         opacity: 0.85,
       }}>
         <span>The corner-store paper of record</span>
         <span>Tuesday Morning Edition</span>
-        <span>Free with purchase</span>
+        {!isMobile && <span>Free with purchase</span>}
       </div>
       <hr className="hr-thin" />
 
       {/* main hero */}
       <div style={{
         position: "relative",
-        padding: "48px 0 56px",
+        padding: isMobile ? "34px 0 40px" : "48px 0 56px",
       }}>
         <div style={{
-          fontFamily: "var(--mono)", fontSize: 12,
-          textTransform: "uppercase", letterSpacing: "0.16em",
+          fontFamily: "var(--mono)", fontSize: isMobile ? 11 : 12,
+          textTransform: "uppercase", letterSpacing: "0.08em",
           marginBottom: 18,
           display: "flex", gap: 10, alignItems: "center",
+          flexWrap: "wrap",
         }}>
           <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: 999, background: "var(--tomato)" }}></span>
           Open right now · until 9 PM
@@ -159,10 +195,10 @@ function Hero({ sticker }) {
         <h1 style={{
           fontFamily: "var(--display)",
           fontWeight: 400,
-          fontSize: "clamp(64px, 12vw, 188px)",
-          lineHeight: 0.88,
+          fontSize: isMobile ? (isTiny ? 48 : 58) : "clamp(64px, 12vw, 188px)",
+          lineHeight: isMobile ? 0.96 : 0.88,
           margin: 0,
-          letterSpacing: "-0.02em",
+          letterSpacing: 0,
         }}>
           Sandwiches,<br />
           <span style={{ fontStyle: "italic", color: "var(--tomato)" }}>sodas</span>, scratchers
@@ -171,15 +207,15 @@ function Hero({ sticker }) {
 
         <div style={{
           display: "grid",
-          gridTemplateColumns: "1.2fr 1fr 1fr",
-          gap: 40,
-          marginTop: 56,
+          gridTemplateColumns: isMobile ? "1fr" : "1.2fr 1fr 1fr",
+          gap: isMobile ? 24 : 40,
+          marginTop: isMobile ? 32 : 56,
           alignItems: "start",
         }}>
           <p style={{
             fontFamily: "var(--display)",
-            fontSize: 26,
-            lineHeight: 1.25,
+            fontSize: isMobile ? 22 : 26,
+            lineHeight: 1.3,
             margin: 0,
             maxWidth: 460,
           }}>
@@ -211,8 +247,8 @@ function Hero({ sticker }) {
           </div>
         </div>
 
-        {/* Rotating sticker */}
-        {sticker && (
+        {/* Sticker badge */}
+        {sticker && !isMobile && (
           <div style={{
             position: "absolute",
             top: 40, right: 0,
@@ -266,25 +302,26 @@ function Sticker() {
 
 // ── Feature strip ────────────────────────────────────────────────
 function FeatureStrip() {
+  const isMobile = useMediaQuery("(max-width: 760px)");
   return (
-    <section style={{ maxWidth: 1440, margin: "0 auto", padding: "32px 40px 64px" }}>
+    <section style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "24px 16px 48px" : "32px 40px 64px" }}>
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
+        gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
         gap: 0,
         border: "2px solid var(--ink)",
         background: "var(--paper-deep)",
       }}>
         {FEATURES.map((f, i) => (
           <div key={i} style={{
-            padding: "22px 26px",
-            borderRight: (i + 1) % 3 === 0 ? "none" : "1px solid var(--ink)",
-            borderBottom: i < 3 ? "1px solid var(--ink)" : "none",
+            padding: isMobile ? "18px 18px" : "22px 26px",
+            borderRight: isMobile || (i + 1) % 3 === 0 ? "none" : "1px solid var(--ink)",
+            borderBottom: isMobile ? (i < FEATURES.length - 1 ? "1px solid var(--ink)" : "none") : (i < 3 ? "1px solid var(--ink)" : "none"),
           }}>
             <div className="mono upper" style={{ fontSize: 10, opacity: 0.6, marginBottom: 4 }}>
               No. {String(i + 1).padStart(2, "0")}
             </div>
-            <div style={{ fontFamily: "var(--display)", fontSize: 26, lineHeight: 1.1, marginBottom: 6 }}>
+            <div style={{ fontFamily: "var(--display)", fontSize: isMobile ? 24 : 26, lineHeight: 1.1, marginBottom: 6 }}>
               {f.k}
             </div>
             <div style={{ fontSize: 14, color: "var(--ink-soft)", lineHeight: 1.4 }}>

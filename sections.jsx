@@ -1,13 +1,42 @@
 /* global React, SANDWICHES, AISLES, REVIEWS, HOURS, STORE, pillBtn */
-const { useState } = React;
+const { useState, useEffect } = React;
+
+function useMediaQuery(query) {
+  const getMatches = () => (typeof window === "undefined" ? false : window.matchMedia(query).matches);
+  const [matches, setMatches] = useState(getMatches);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const update = () => setMatches(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [query]);
+
+  return matches;
+}
 
 // ── Sandwich menu / deli board ───────────────────────────────────
 function Sandwiches() {
   const [hover, setHover] = useState(null);
+  const isMobile = useMediaQuery("(max-width: 760px)");
   return (
-    <section id="sandwiches" style={{ background: "var(--ink)", color: "var(--paper)", padding: "96px 40px" }}>
+    <section id="sandwiches" style={{
+      background: "var(--ink)",
+      color: "var(--paper)",
+      padding: isMobile ? "64px 16px" : "96px 40px",
+      scrollMarginTop: isMobile ? 120 : 80,
+    }}>
       <div style={{ maxWidth: 1440, margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 36, flexWrap: "wrap", gap: 16 }}>
+        <div style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          justifyContent: "space-between",
+          alignItems: isMobile ? "stretch" : "baseline",
+          marginBottom: isMobile ? 28 : 36,
+          flexWrap: "wrap",
+          gap: isMobile ? 18 : 16,
+        }}>
           <div>
             <div className="mono upper" style={{ fontSize: 11, opacity: 0.55, marginBottom: 10 }}>
               The Deli Counter · Section A
@@ -15,17 +44,17 @@ function Sandwiches() {
             <h2 style={{
               fontFamily: "var(--display)",
               fontWeight: 400,
-              fontSize: "clamp(48px, 7vw, 96px)",
-              lineHeight: 0.95,
+              fontSize: isMobile ? 42 : "clamp(48px, 7vw, 96px)",
+              lineHeight: isMobile ? 1 : 0.95,
               margin: 0,
-              letterSpacing: "-0.02em",
+              letterSpacing: 0,
             }}>
               Made to order,<br />
               <span style={{ fontStyle: "italic", color: "var(--tomato)" }}>cut to order</span>,<br />
               wrapped in paper.
             </h2>
           </div>
-          <div style={{ maxWidth: 360, fontSize: 15, lineHeight: 1.55, opacity: 0.8 }}>
+          <div style={{ maxWidth: isMobile ? "none" : 360, fontSize: 15, lineHeight: 1.55, opacity: 0.8 }}>
             All sandwiches built on house focaccia, ciabatta, soft roll, whole wheat, or wrap.
             Boar's Head meats. Cheese cut from the block. We toast it if you want.
           </div>
@@ -33,7 +62,7 @@ function Sandwiches() {
 
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
           gap: 0,
           border: "1px solid rgba(242,234,217,0.25)",
         }}>
@@ -44,12 +73,12 @@ function Sandwiches() {
                 onMouseEnter={() => setHover(i)}
                 onMouseLeave={() => setHover(null)}
                 style={{
-                  padding: "28px 32px",
-                  borderRight: right ? "none" : "1px solid rgba(242,234,217,0.25)",
-                  borderBottom: i < SANDWICHES.length - 2 ? "1px solid rgba(242,234,217,0.25)" : "none",
+                  padding: isMobile ? "20px 16px" : "28px 32px",
+                  borderRight: isMobile || right ? "none" : "1px solid rgba(242,234,217,0.25)",
+                  borderBottom: isMobile ? (i < SANDWICHES.length - 1 ? "1px solid rgba(242,234,217,0.25)" : "none") : (i < SANDWICHES.length - 2 ? "1px solid rgba(242,234,217,0.25)" : "none"),
                   display: "grid",
-                  gridTemplateColumns: "48px 1fr auto",
-                  gap: 18,
+                  gridTemplateColumns: isMobile ? "34px minmax(0, 1fr) auto" : "48px 1fr auto",
+                  gap: isMobile ? 12 : 18,
                   alignItems: "start",
                   background: hover === i ? "rgba(210,75,58,0.08)" : "transparent",
                   transition: "background 140ms ease",
@@ -60,7 +89,7 @@ function Sandwiches() {
                 </div>
                 <div>
                   <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 6, flexWrap: "wrap" }}>
-                    <span style={{ fontFamily: "var(--display)", fontSize: 32, lineHeight: 1 }}>
+                    <span style={{ fontFamily: "var(--display)", fontSize: isMobile ? 27 : 32, lineHeight: 1.05 }}>
                       {s.name}
                     </span>
                     <Tag kind={s.tag} />
@@ -85,12 +114,16 @@ function Sandwiches() {
 
         <div style={{
           marginTop: 28,
-          padding: "20px 24px",
+          padding: isMobile ? "18px 16px" : "20px 24px",
           border: "1px dashed rgba(242,234,217,0.4)",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          gap: 20, flexWrap: "wrap",
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          justifyContent: "space-between",
+          alignItems: isMobile ? "flex-start" : "center",
+          gap: 20,
+          flexWrap: "wrap",
         }}>
-          <div style={{ fontFamily: "var(--display)", fontSize: 22, fontStyle: "italic" }}>
+          <div style={{ fontFamily: "var(--display)", fontSize: isMobile ? 21 : 22, fontStyle: "italic" }}>
             Don't see what you want? Tell us. We build custom.
           </div>
           <a href={`tel:${STORE.phone.replace(/\D/g, "")}`} style={{
@@ -132,17 +165,29 @@ function Tag({ kind }) {
 
 // ── Aisles directory ─────────────────────────────────────────────
 function Aisles() {
+  const isMobile = useMediaQuery("(max-width: 760px)");
   return (
-    <section id="aisles" style={{ padding: "96px 40px", maxWidth: 1440, margin: "0 auto" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, marginBottom: 48, alignItems: "end" }}>
+    <section id="aisles" style={{
+      padding: isMobile ? "64px 16px" : "96px 40px",
+      maxWidth: 1440,
+      margin: "0 auto",
+      scrollMarginTop: isMobile ? 120 : 80,
+    }}>
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+        gap: isMobile ? 22 : 60,
+        marginBottom: isMobile ? 30 : 48,
+        alignItems: "end",
+      }}>
         <div>
           <div className="mono upper" style={{ fontSize: 11, opacity: 0.55, marginBottom: 10 }}>
             What we carry · Inventory list
           </div>
           <h2 style={{
             fontFamily: "var(--display)", fontWeight: 400,
-            fontSize: "clamp(48px, 7vw, 96px)",
-            lineHeight: 0.95, margin: 0, letterSpacing: "-0.02em",
+            fontSize: isMobile ? 42 : "clamp(48px, 7vw, 96px)",
+            lineHeight: isMobile ? 1 : 0.95, margin: 0, letterSpacing: 0,
           }}>
             Eight tight aisles.<br />
             <span style={{ fontStyle: "italic" }}>One </span>
@@ -150,7 +195,7 @@ function Aisles() {
             <span style={{ fontStyle: "italic" }}> store.</span>
           </h2>
         </div>
-        <p style={{ fontSize: 16, lineHeight: 1.6, color: "var(--ink-soft)", margin: 0, maxWidth: 480 }}>
+        <p style={{ fontSize: 16, lineHeight: 1.6, color: "var(--ink-soft)", margin: 0, maxWidth: isMobile ? "none" : 480 }}>
           We're small on purpose. Every shelf is picked by someone who works here.
           If you want something we don't have, ask — we'll often get it next week.
         </p>
@@ -160,15 +205,15 @@ function Aisles() {
         {AISLES.map((a, i) => (
           <div key={a.row} style={{
             display: "grid",
-            gridTemplateColumns: "80px 240px 1fr 80px",
+            gridTemplateColumns: isMobile ? "54px minmax(0, 1fr)" : "80px 240px 1fr 80px",
             borderBottom: i < AISLES.length - 1 ? "1px solid var(--ink)" : "none",
             background: i % 2 === 0 ? "transparent" : "rgba(26,23,20,0.03)",
-            alignItems: "center",
+            alignItems: isMobile ? "start" : "center",
           }}>
             <div style={{
               fontFamily: "var(--display)",
-              fontSize: 56,
-              padding: "16px 0 16px 24px",
+              fontSize: isMobile ? 42 : 56,
+              padding: isMobile ? "16px 0 0 14px" : "16px 0 16px 24px",
               fontStyle: "italic",
               color: "var(--tomato)",
               lineHeight: 1,
@@ -177,27 +222,32 @@ function Aisles() {
             </div>
             <div style={{
               fontFamily: "var(--display)",
-              fontSize: 28,
-              padding: "20px 0",
+              fontSize: isMobile ? 24 : 28,
+              padding: isMobile ? "16px 14px 0 0" : "20px 0",
+              lineHeight: 1.1,
             }}>
               {a.label}
             </div>
             <div style={{
-              padding: "20px 24px",
+              gridColumn: isMobile ? "1 / -1" : "auto",
+              padding: isMobile ? "8px 14px 16px" : "20px 24px",
               fontSize: 14,
               color: "var(--ink-soft)",
               fontFamily: "var(--mono)",
+              lineHeight: 1.55,
             }}>
               {a.items.join(" · ")}
             </div>
-            <div className="mono upper" style={{
-              fontSize: 10,
-              textAlign: "right",
-              paddingRight: 24,
-              opacity: 0.45,
-            }}>
-              Aisle {String(i + 1).padStart(2, "0")}
-            </div>
+            {!isMobile && (
+              <div className="mono upper" style={{
+                fontSize: 10,
+                textAlign: "right",
+                paddingRight: 24,
+                opacity: 0.45,
+              }}>
+                Aisle {String(i + 1).padStart(2, "0")}
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -207,12 +257,15 @@ function Aisles() {
 
 // ── Visit / hours / map ──────────────────────────────────────────
 function Visit() {
+  const isMobile = useMediaQuery("(max-width: 760px)");
+  const isTablet = useMediaQuery("(max-width: 980px)");
   return (
     <section id="visit" style={{
       background: "var(--paper-deep)",
       borderTop: "2px solid var(--ink)",
       borderBottom: "2px solid var(--ink)",
-      padding: "96px 40px",
+      padding: isMobile ? "64px 16px" : "96px 40px",
+      scrollMarginTop: isMobile ? 120 : 80,
     }}>
       <div style={{ maxWidth: 1440, margin: "0 auto" }}>
         <div className="mono upper" style={{ fontSize: 11, opacity: 0.55, marginBottom: 10 }}>
@@ -220,8 +273,8 @@ function Visit() {
         </div>
         <h2 style={{
           fontFamily: "var(--display)", fontWeight: 400,
-          fontSize: "clamp(48px, 7vw, 96px)",
-          lineHeight: 0.95, margin: "0 0 48px", letterSpacing: "-0.02em",
+          fontSize: isMobile ? 42 : "clamp(48px, 7vw, 96px)",
+          lineHeight: isMobile ? 1 : 0.95, margin: isMobile ? "0 0 30px" : "0 0 48px", letterSpacing: 0,
           maxWidth: 1000,
         }}>
           Two blocks south of campus,<br />
@@ -230,17 +283,17 @@ function Visit() {
 
         <div style={{
           display: "grid",
-          gridTemplateColumns: "1.4fr 1fr 1fr",
-          gap: 24,
+          gridTemplateColumns: isTablet ? "1fr" : "1.4fr 1fr 1fr",
+          gap: isMobile ? 16 : 24,
         }}>
           <Map />
           <div style={{
             background: "var(--paper)",
             border: "2px solid var(--ink)",
-            padding: "28px 28px",
+            padding: isMobile ? "22px 18px" : "28px 28px",
           }}>
             <div className="mono upper" style={{ fontSize: 11, marginBottom: 14 }}>Address</div>
-            <div style={{ fontFamily: "var(--display)", fontSize: 28, lineHeight: 1.2, marginBottom: 18 }}>
+            <div style={{ fontFamily: "var(--display)", fontSize: isMobile ? 24 : 28, lineHeight: 1.2, marginBottom: 18 }}>
               {STORE.address}<br />
               {STORE.cityLine}
             </div>
@@ -264,7 +317,7 @@ function Visit() {
           <div style={{
             background: "var(--paper)",
             border: "2px solid var(--ink)",
-            padding: "28px 28px",
+            padding: isMobile ? "22px 18px" : "28px 28px",
           }}>
             <div className="mono upper" style={{ fontSize: 11, marginBottom: 14 }}>Hours</div>
             <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: 22 }}>
@@ -320,12 +373,13 @@ function Visit() {
 
 // ── Stylized map placeholder ─────────────────────────────────────
 function Map() {
+  const isMobile = useMediaQuery("(max-width: 760px)");
   return (
     <div style={{
       position: "relative",
       border: "2px solid var(--ink)",
       background: "var(--paper)",
-      minHeight: 420,
+      minHeight: isMobile ? 280 : 420,
       overflow: "hidden",
     }}>
       {/* grid streets */}
@@ -383,11 +437,13 @@ function Map() {
       </svg>
       <div style={{
         position: "absolute", bottom: 12, left: 12,
+        right: isMobile ? 12 : "auto",
         fontFamily: "var(--mono)", fontSize: 10,
-        textTransform: "uppercase", letterSpacing: "0.14em",
+        textTransform: "uppercase", letterSpacing: "0.08em",
         background: "var(--paper)",
         padding: "4px 8px",
         border: "1px solid var(--ink)",
+        lineHeight: 1.35,
       }}>
         Not to scale · click "Open in Maps" for real
       </div>
@@ -397,31 +453,32 @@ function Map() {
 
 // ── Reviews / quotes ─────────────────────────────────────────────
 function Reviews() {
+  const isMobile = useMediaQuery("(max-width: 760px)");
   return (
-    <section style={{ padding: "96px 40px", maxWidth: 1440, margin: "0 auto" }}>
+    <section style={{ padding: isMobile ? "64px 16px" : "96px 40px", maxWidth: 1440, margin: "0 auto" }}>
       <div className="mono upper" style={{ fontSize: 11, opacity: 0.55, marginBottom: 14 }}>
         Letters to the Editor · The Neighborhood says
       </div>
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
         gap: 0,
         borderTop: "2px solid var(--ink)",
         borderBottom: "2px solid var(--ink)",
       }}>
         {REVIEWS.map((r, i) => (
           <div key={i} style={{
-            padding: "48px 36px",
-            borderRight: i % 2 === 0 ? "1px solid var(--ink)" : "none",
-            borderBottom: i < 2 ? "1px solid var(--ink)" : "none",
+            padding: isMobile ? "28px 0" : "48px 36px",
+            borderRight: isMobile || i % 2 !== 0 ? "none" : "1px solid var(--ink)",
+            borderBottom: isMobile ? (i < REVIEWS.length - 1 ? "1px solid var(--ink)" : "none") : (i < 2 ? "1px solid var(--ink)" : "none"),
           }}>
             <div style={{
               fontFamily: "var(--display)",
-              fontSize: 36,
+              fontSize: isMobile ? 28 : 36,
               lineHeight: 1.15,
               fontStyle: "italic",
               marginBottom: 20,
-              letterSpacing: "-0.005em",
+              letterSpacing: 0,
               textWrap: "pretty",
             }}>
               "{r.q}"
@@ -438,12 +495,18 @@ function Reviews() {
 
 // ── Family story + Instagram ─────────────────────────────────────
 function Family() {
+  const isMobile = useMediaQuery("(max-width: 760px)");
   return (
-    <section id="family" style={{ padding: "96px 40px", maxWidth: 1440, margin: "0 auto" }}>
+    <section id="family" style={{
+      padding: isMobile ? "64px 16px" : "96px 40px",
+      maxWidth: 1440,
+      margin: "0 auto",
+      scrollMarginTop: isMobile ? 120 : 80,
+    }}>
       <div style={{
         display: "grid",
-        gridTemplateColumns: "1fr 1.1fr",
-        gap: 80,
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1.1fr",
+        gap: isMobile ? 42 : 80,
         alignItems: "start",
       }}>
         <div>
@@ -452,8 +515,8 @@ function Family() {
           </div>
           <h2 style={{
             fontFamily: "var(--display)", fontWeight: 400,
-            fontSize: "clamp(48px, 7vw, 88px)",
-            lineHeight: 0.95, margin: "0 0 28px", letterSpacing: "-0.02em",
+            fontSize: isMobile ? 42 : "clamp(48px, 7vw, 88px)",
+            lineHeight: isMobile ? 1 : 0.95, margin: "0 0 28px", letterSpacing: 0,
           }}>
             <span style={{ fontStyle: "italic" }}>We've been</span> on this corner<br />
             <span style={{ color: "var(--tomato)" }}>since 2009</span>.
@@ -486,6 +549,7 @@ function Family() {
 }
 
 function InstagramGrid() {
+  const isMobile = useMediaQuery("(max-width: 760px)");
   const tiles = [
     { tone: "tomato", label: "New menu board", w: 1, h: 1 },
     { tone: "olive",  label: "Avocado day",    w: 1, h: 1 },
@@ -510,8 +574,8 @@ function InstagramGrid() {
       </div>
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gridAutoRows: "180px",
+        gridTemplateColumns: isMobile ? "repeat(2, minmax(0, 1fr))" : "repeat(3, 1fr)",
+        gridAutoRows: isMobile ? "130px" : "180px",
         gap: 8,
       }}>
         {tiles.map((t, i) => (
@@ -552,17 +616,18 @@ function PhotoPlaceholder({ label }) {
 
 // ── Footer ───────────────────────────────────────────────────────
 function Footer() {
+  const isMobile = useMediaQuery("(max-width: 760px)");
   return (
     <footer style={{
       background: "var(--ink)", color: "var(--paper)",
-      padding: "80px 40px 32px",
+      padding: isMobile ? "64px 16px 28px" : "80px 40px 32px",
     }}>
       <div style={{ maxWidth: 1440, margin: "0 auto" }}>
         <div style={{
           fontFamily: "var(--display)",
-          fontSize: "clamp(80px, 18vw, 260px)",
-          lineHeight: 0.85,
-          letterSpacing: "-0.04em",
+          fontSize: isMobile ? 64 : "clamp(80px, 18vw, 260px)",
+          lineHeight: isMobile ? 0.95 : 0.85,
+          letterSpacing: 0,
           fontStyle: "italic",
         }}>
           See you<br />
@@ -571,10 +636,10 @@ function Footer() {
 
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: 32,
-          marginTop: 64,
-          paddingTop: 32,
+          gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)",
+          gap: isMobile ? 24 : 32,
+          marginTop: isMobile ? 42 : 64,
+          paddingTop: isMobile ? 24 : 32,
           borderTop: "1px solid rgba(242,234,217,0.25)",
         }}>
           <div>
@@ -608,8 +673,12 @@ function Footer() {
           paddingTop: 16,
           borderTop: "1px solid rgba(242,234,217,0.15)",
           fontFamily: "var(--mono)", fontSize: 11,
-          textTransform: "uppercase", letterSpacing: "0.14em",
-          display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 12,
+          textTransform: "uppercase", letterSpacing: "0.08em",
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 12,
           opacity: 0.65,
         }}>
           <span>© Ashby Super Market · MMXXVI</span>
