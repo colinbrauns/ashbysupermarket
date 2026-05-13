@@ -2,14 +2,14 @@
   "name": "Ashby Super Market",
   "short_name": "Ashby Market",
   "description": "South Berkeley deli, groceries, boba, lottery, and delivery near Ashby BART.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/ashbysupermarket/",
+  "scope": "/ashbysupermarket/",
   "display": "browser",
   "background_color": "#F2EAD9",
   "theme_color": "#D24B3A",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }
@@ -17,11 +17,11 @@
   "shortcuts": [
     {
       "name": "Order Online",
-      "url": "/#order"
+      "url": "/ashbysupermarket/#order"
     },
     {
       "name": "Directions",
-      "url": "/#visit"
+      "url": "/ashbysupermarket/#visit"
     }
   ]
 }

@@ -1,4 +1,4 @@
-# ashbysupermarket.com
+# Ashby Super Market
 
 Static site for **Ashby Super Market** — 2948 Martin Luther King Jr Way, Berkeley, CA 94703.
 
@@ -13,7 +13,7 @@ This is a plain static site — no build step.
    - **Source**: Deploy from a branch
    - **Branch**: `main` · `/ (root)`
 3. Wait ~1 minute. Your site will be live at the URL shown on that page.
-4. To use `ashbysupermarket.com`: add a `CNAME` file containing `ashbysupermarket.com` and point your domain's DNS to GitHub Pages (see GitHub's [custom-domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)).
+4. Current Pages URL: `https://colinbrauns.github.io/ashbysupermarket/`. Do not add a `CNAME` until the custom domain is ready.
 
 The `.nojekyll` file is included so GitHub Pages serves files starting with `_` correctly and skips Jekyll processing.
 
@@ -27,7 +27,6 @@ The `.nojekyll` file is included so GitHub Pages serves files starting with `_` 
 | `sections.jsx` | Sandwiches, aisles, visit, reviews, family, footer |
 | `app.jsx` | Root + Tweaks panel wiring |
 | `tweaks-panel.jsx` | Floating tweaks controls (palette / font / sticker) |
-| `CNAME` | Custom domain for GitHub Pages |
 | `robots.txt` / `sitemap.xml` | Search crawler hints |
 | `favicon.svg` / `og-image.svg` | Browser icon and social preview artwork |
 | `404.html` | Lightweight not-found page |
