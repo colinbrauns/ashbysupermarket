@@ -711,7 +711,7 @@ function Footer() {
           <div>
             <div className="mono upper" style={{ fontSize: 10, opacity: 0.55, marginBottom: 10 }}>Hours</div>
             <div style={{ fontSize: 14, lineHeight: 1.5 }}>
-              Open daily<br />Call to confirm
+              Daily<br />9am-10pm
             </div>
           </div>
           <div>

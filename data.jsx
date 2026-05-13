@@ -9,7 +9,7 @@ const STORE = {
   cross: "Across from Ashby BART",
   phone: "(510) 647-3672",
   phoneTel: "+15106473672",
-  hoursLine: "Open daily · call to confirm",
+  hoursLine: "Open daily · 9am-10pm",
   domain: "colinbrauns.github.io/ashbysupermarket",
   instagram: "@ashbysupermarket",
   mapsUrl: "https://maps.app.goo.gl/CaLkuAG8eCPEsbvp9",
@@ -17,21 +17,19 @@ const STORE = {
 };
 
 const ORDER_LINKS = [
+  { name: "Grubhub", href: "https://www.grubhub.com/restaurant/ashby-super-market-2948-martin-luther-king-jr-way-berkeley/2691960", note: "Delivery + pickup" },
   { name: "DoorDash", href: "https://www.doordash.com/store/ashby-super-market-berkeley-1272966/", note: "Delivery + pickup" },
   { name: "Uber Eats", href: "https://www.ubereats.com/store/ashby-super-market/ySHmgI3tW-aAUeIDgGE0iQ", note: "Delivery availability varies" },
-  { name: "Postmates", href: "https://postmates.com/store/ashby-super-market/ySHmgI3tW-aAUeIDgGE0iQ", note: "Delivery availability varies" },
-  { name: "Grubhub", href: "https://www.grubhub.com/restaurant/ashby-super-market-2948-martin-luther-king-jr-way-berkeley/2691960", note: "Delivery + pickup" },
-  { name: "Mercato", href: "https://www.mercato.com/shop/ashby-supermarket", note: "Groceries" },
 ];
 
 const SANDWICHES = [
-  { n: "01", name: "California Dreaming", price: "from $13.99", desc: "Boar's Head cracked pepper turkey, provolone, avocado, tomato, mayo · focaccia", tag: "house" },
-  { n: "02", name: "Roast Beef Hero", price: "from $13.99", desc: "Boar's Head deluxe roast beef, pepperjack, tomato, onion, lettuce · roll", tag: "hot" },
-  { n: "03", name: "Classic Pastrami", price: "from $13.99", desc: "Boar's Head pastrami, Swiss, mustard · rye", tag: "hot" },
-  { n: "04", name: "Cracked Pepper Turkey Reuben", price: "from $13.99", desc: "Cracked pepper turkey, Swiss, Reuben-style build · rye", tag: "hot" },
-  { n: "05", name: "Tuna Melt", price: "from $13.99", desc: "Fresh tuna salad, your choice of bread, toppings, and cheese", tag: "hot" },
-  { n: "06", name: "Self Created Sandwich", price: "from $13.99", desc: "Build it your way. Pick the meat, the cheese, the bread, and the works.", tag: "byo" },
-  { n: "07", name: "Falafel Wrap", price: "from $9.99", desc: "Three falafel, hummus, salad, sriracha if selected, olive oil, spice · pita", tag: "veg" },
+  { n: "01", name: "California Dreaming", price: "from $10.99", desc: "Boar's Head cracked pepper turkey, provolone, avocado, tomato, mayo · focaccia", tag: "house" },
+  { n: "02", name: "Roast Beef Hero", price: "from $11.99", desc: "Boar's Head deluxe roast beef, pepperjack, tomato, onion, lettuce · roll", tag: "hot" },
+  { n: "03", name: "Classic Pastrami", price: "from $11.99", desc: "Boar's Head pastrami, Swiss, mustard · rye", tag: "hot" },
+  { n: "04", name: "Cracked Pepper Turkey Reuben", price: "from $11.99", desc: "Cracked pepper turkey, Swiss, Reuben-style build · rye", tag: "hot" },
+  { n: "05", name: "Tuna Melt", price: "from $11.99", desc: "Fresh tuna salad, your choice of bread, toppings, and cheese", tag: "hot" },
+  { n: "06", name: "Self Created Sandwich", price: "from $10.99", desc: "Build it your way. Pick the meat, the cheese, the bread, and the works.", tag: "byo" },
+  { n: "07", name: "Falafel Wrap", price: "from $10.99", desc: "Three falafel, hummus, salad, sriracha if selected, olive oil, spice · pita", tag: "veg" },
 ];
 
 const BUILD_OPTIONS = [
@@ -58,7 +56,7 @@ const FEATURES = [
   { k: "Lottery", v: "Powerball, Mega, Scratchers." },
   { k: "Organic Produce", v: "Small but mighty selection." },
   { k: "Exotic Sodas", v: "A whole wall of bottles." },
-  { k: "Delivery", v: "DoorDash · Grubhub · Postmates · Mercato." },
+  { k: "Delivery", v: "Grubhub · DoorDash · Uber Eats." },
 ];
 
 const REVIEWS = [
@@ -69,13 +67,13 @@ const REVIEWS = [
 ];
 
 const HOURS = [
-  ["Mon", "Call to confirm"],
-  ["Tue", "Call to confirm"],
-  ["Wed", "Call to confirm"],
-  ["Thu", "Call to confirm"],
-  ["Fri", "Call to confirm"],
-  ["Sat", "Call to confirm"],
-  ["Sun", "Call to confirm"],
+  ["Mon", "9am-10pm"],
+  ["Tue", "9am-10pm"],
+  ["Wed", "9am-10pm"],
+  ["Thu", "9am-10pm"],
+  ["Fri", "9am-10pm"],
+  ["Sat", "9am-10pm"],
+  ["Sun", "9am-10pm"],
 ];
 
 Object.assign(window, { STORE, ORDER_LINKS, SANDWICHES, BUILD_OPTIONS, AISLES, FEATURES, REVIEWS, HOURS });

@@ -20,7 +20,7 @@ function useMediaQuery(query) {
 function Marquee() {
   const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const bits = [
-    "Open daily, call to confirm",
+    "Open daily, 9am-10pm",
     "Sandwiches made to order",
     "Boba stand now serving",
     "We sell lottery tickets",
@@ -238,7 +238,7 @@ function Hero({ sticker }) {
           <div>
             <div className="mono upper" style={{ fontSize: 11, opacity: 0.65, marginBottom: 8 }}>Today</div>
             <div style={{ fontFamily: "var(--display)", fontSize: 22, lineHeight: 1.3 }}>
-              Call to confirm hours<br />
+              9am-10pm daily<br />
               <span style={{ fontStyle: "italic", color: "var(--olive)" }}>Delivery windows vary.</span>
             </div>
             <div style={{ display: "flex", gap: 8, marginTop: 14, flexWrap: "wrap" }}>
