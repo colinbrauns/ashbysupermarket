@@ -1,4 +1,4 @@
-/* global React, SANDWICHES, BUILD_OPTIONS, AISLES, REVIEWS, HOURS, STORE, ORDER_LINKS, pillBtn */
+/* global React, SANDWICHES, BUILD_OPTIONS, BOBA_MENU, AISLES, REVIEWS, HOURS, STORE, ORDER_LINKS, pillBtn */
 const { useState, useEffect } = React;
 
 function useMediaQuery(query) {
@@ -73,16 +73,21 @@ function Sandwiches() {
           flexWrap: "wrap",
         }}>
           <span className="mono upper" style={{ fontSize: 10, letterSpacing: "0.12em", opacity: 0.72 }}>
-            Sandwich prices
+            In-store / call-in sandwich prices
           </span>
-          <span style={{
-            fontFamily: "var(--display)",
-            fontSize: isMobile ? 26 : 32,
-            lineHeight: 1,
-            letterSpacing: 0,
-          }}>
-            $10.99 cold, $11.99 hot
-          </span>
+          <div style={{ textAlign: isMobile ? "left" : "right" }}>
+            <div style={{
+              fontFamily: "var(--display)",
+              fontSize: isMobile ? 26 : 32,
+              lineHeight: 1,
+              letterSpacing: 0,
+            }}>
+              $10.99 cold, $11.99 hot
+            </div>
+            <div className="mono upper" style={{ fontSize: 9, letterSpacing: "0.08em", opacity: 0.58, marginTop: 6 }}>
+              Delivery app prices may vary
+            </div>
+          </div>
         </div>
 
         <div style={{
@@ -183,6 +188,23 @@ function Sandwiches() {
             background: "rgba(242,234,217,0.04)",
           }}>
             <div className="mono upper" style={{ fontSize: 11, opacity: 0.6, marginBottom: 10 }}>Order online</div>
+            <a href={`tel:${STORE.phoneTel}`} style={{
+              color: "var(--ink)",
+              textDecoration: "none",
+              background: "var(--mustard)",
+              border: "1px solid var(--mustard)",
+              padding: isMobile ? "12px 14px" : "14px 16px",
+              minHeight: 64,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 14,
+              marginBottom: 10,
+              flexWrap: "wrap",
+            }}>
+              <span style={{ fontFamily: "var(--display)", fontSize: isMobile ? 24 : 28, lineHeight: 1 }}>Call for deli pickup</span>
+              <span className="mono upper" style={{ fontSize: 10, letterSpacing: "0.08em", opacity: 0.72 }}>{STORE.phone}</span>
+            </a>
             <div style={{
               display: "grid",
               gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))",
@@ -232,6 +254,110 @@ function Tag({ kind }) {
       color: t.color,
       border: t.border || "none",
     }}>{t.label}</span>
+  );
+}
+
+// ── Boba / cold brew menu ───────────────────────────────────────
+function BobaMenu() {
+  const isMobile = useMediaQuery("(max-width: 760px)");
+  return (
+    <section id="boba" style={{
+      background: "var(--paper-deep)",
+      color: "var(--ink)",
+      padding: isMobile ? "64px 16px" : "88px 40px",
+      borderBottom: "2px solid var(--ink)",
+      scrollMarginTop: isMobile ? 120 : 80,
+    }}>
+      <div style={{ maxWidth: 1440, margin: "0 auto" }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "1.05fr 0.95fr",
+          gap: isMobile ? 28 : 48,
+          alignItems: "end",
+          marginBottom: isMobile ? 28 : 36,
+        }}>
+          <div>
+            <div className="mono upper" style={{ fontSize: 11, opacity: 0.55, marginBottom: 10 }}>
+              The Boba Stand · Tea + coffee
+            </div>
+            <h2 style={{
+              fontFamily: "var(--display)",
+              fontWeight: 400,
+              fontSize: isMobile ? 42 : "clamp(48px, 7vw, 96px)",
+              lineHeight: isMobile ? 1 : 0.95,
+              margin: 0,
+              letterSpacing: 0,
+            }}>
+              Boba, matcha,<br />
+              <span style={{ fontStyle: "italic", color: "var(--tomato)" }}>cold brew</span>,<br />
+              made at the counter.
+            </h2>
+          </div>
+          <div style={{
+            border: "2px solid var(--ink)",
+            background: "var(--paper)",
+            padding: isMobile ? "18px 16px" : "22px 24px",
+          }}>
+            <div className="mono upper" style={{ fontSize: 10, letterSpacing: "0.12em", opacity: 0.58, marginBottom: 8 }}>
+              Menu note
+            </div>
+            <p style={{ fontSize: 15, lineHeight: 1.55, color: "var(--ink-soft)", margin: 0 }}>
+              Current drinks are listed from Bee Boba & Deli's online menu.
+              They also make cold brew coffee at the counter.
+            </p>
+          </div>
+        </div>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))",
+          border: "2px solid var(--ink)",
+          background: "var(--paper)",
+        }}>
+          {BOBA_MENU.map((section, i) => (
+            <div key={section.group} style={{
+              padding: isMobile ? "20px 16px" : "24px 22px",
+              borderRight: isMobile || i === BOBA_MENU.length - 1 ? "none" : "1px solid var(--ink)",
+              borderBottom: isMobile && i < BOBA_MENU.length - 1 ? "1px solid var(--ink)" : "none",
+              minHeight: isMobile ? "auto" : 220,
+            }}>
+              <div className="mono upper" style={{ fontSize: 10, letterSpacing: "0.12em", color: "var(--tomato)", marginBottom: 10 }}>
+                No. {String(i + 1).padStart(2, "0")}
+              </div>
+              <h3 style={{
+                fontFamily: "var(--display)",
+                fontSize: isMobile ? 28 : 32,
+                fontWeight: 400,
+                lineHeight: 1,
+                margin: section.note ? "0 0 6px" : "0 0 16px",
+                letterSpacing: 0,
+              }}>
+                {section.group}
+              </h3>
+              {section.note && (
+                <div className="mono upper" style={{ fontSize: 9, letterSpacing: "0.08em", color: "var(--ink-soft)", opacity: 0.7, marginBottom: 16 }}>
+                  {section.note}
+                </div>
+              )}
+              <div style={{ display: "grid", gap: 8 }}>
+                {section.items.map(item => (
+                  <div key={item} style={{
+                    fontFamily: "var(--mono)",
+                    fontSize: 12,
+                    lineHeight: 1.35,
+                    color: "var(--ink-soft)",
+                    borderTop: "1px dashed rgba(26,23,20,0.22)",
+                    paddingTop: 8,
+                  }}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -349,8 +475,8 @@ function Visit() {
           lineHeight: isMobile ? 1 : 0.95, margin: isMobile ? "0 0 30px" : "0 0 48px", letterSpacing: 0,
           maxWidth: 1000,
         }}>
-          Two blocks south of campus,<br />
-          <span style={{ fontStyle: "italic", color: "var(--tomato)" }}>across the street</span> from the BART.
+          In South Berkeley,<br />
+          <span style={{ fontStyle: "italic", color: "var(--tomato)" }}>across the street</span> from Ashby BART.
         </h2>
 
         <div style={{
@@ -765,4 +891,4 @@ function Footer() {
   );
 }
 
-Object.assign(window, { Sandwiches, Aisles, Visit, Reviews, Family, Footer });
+Object.assign(window, { Sandwiches, BobaMenu, Aisles, Visit, Reviews, Family, Footer });

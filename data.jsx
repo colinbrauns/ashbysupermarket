@@ -20,7 +20,7 @@ const ORDER_LINKS = [
   { name: "Grubhub", href: "https://www.grubhub.com/restaurant/ashby-super-market-2948-martin-luther-king-jr-way-berkeley/2691960", note: "Delivery + pickup" },
   { name: "DoorDash", href: "https://www.doordash.com/store/ashby-super-market-berkeley-1272966/", note: "Delivery + pickup" },
   { name: "Uber Eats", href: "https://www.ubereats.com/store/ashby-super-market/ySHmgI3tW-aAUeIDgGE0iQ", note: "Delivery availability varies" },
-  { name: "Snackpass", href: "https://www.snackpass.co/get", note: "Order in the app" },
+  { name: "Snackpass", href: "https://order.snackpass.co/beebobadeli", note: "Listed as Bee Boba Deli" },
 ];
 
 const SANDWICHES = [
@@ -40,6 +40,13 @@ const BUILD_OPTIONS = [
   { label: "Toppings", items: ["Avocado", "Tomato", "Onion", "Lettuce", "Mustard", "Mayo", "Sriracha"] },
 ];
 
+const BOBA_MENU = [
+  { group: "Popular", items: ["Thai Milk Tea", "Ube Taro Milk Tea", "Strawberry Smoothie", "Brown Sugar Latte", "Mango Green Tea"] },
+  { group: "Milk Tea", items: ["Coconut Milk Tea", "Classic Milk Tea", "Ube Taro Milk Tea", "Matcha Latte", "Brown Sugar Latte", "Okinawa Milk Tea", "Thai Milk Tea"] },
+  { group: "Fruit Tea", note: "Green tea base", items: ["Lychee Rose Green Tea", "Dragon Fruit Green", "Honeydew Fruit Tea", "Watermelon Fruit Tea", "Hibiscus Fruit Tea", "Raspberry Fruit Tea", "Mango Green Tea", "Passion Fruit Green Tea"] },
+  { group: "Smoothies & Slushies", note: "Milk / water base", items: ["Strawberry Smoothie", "Mangonada", "Lychee Slushy", "Watermelon Slushy", "Ube Taro Smoothie", "Araisi (Yemeni Special)", "Pina Colada", "Brown Sugar Smoothie", "Lime Island (Yemeni Special)"] },
+];
+
 const AISLES = [
   { row: "A", label: "Produce", items: ["Bananas", "Apples", "Avocado", "Pomegranate (seasonal)", "Mango", "Greens & herbs", "Organic when in"] },
   { row: "B", label: "The Cold Case", items: ["Organic milk", "Eggs", "Yogurt", "Butter & cream", "Boar's Head deli meats", "Cheese wall"] },
@@ -53,7 +60,7 @@ const AISLES = [
 
 const FEATURES = [
   { k: "Boar's Head Deli", v: "Sandwiches made to order, all day." },
-  { k: "Boba Stand", v: "Matcha lattes and double-pearl milk tea." },
+  { k: "Boba + Coffee", v: "Milk tea, matcha, boba pearls, and cold brew." },
   { k: "Lottery", v: "Powerball, Mega, Scratchers." },
   { k: "Organic Produce", v: "Small but mighty selection." },
   { k: "Exotic Sodas", v: "A whole wall of bottles." },
@@ -77,4 +84,4 @@ const HOURS = [
   ["Sun", "9am-10pm"],
 ];
 
-Object.assign(window, { STORE, ORDER_LINKS, SANDWICHES, BUILD_OPTIONS, AISLES, FEATURES, REVIEWS, HOURS });
+Object.assign(window, { STORE, ORDER_LINKS, SANDWICHES, BUILD_OPTIONS, BOBA_MENU, AISLES, FEATURES, REVIEWS, HOURS });

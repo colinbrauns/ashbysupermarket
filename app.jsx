@@ -1,4 +1,4 @@
-/* global React, ReactDOM, Marquee, Nav, Hero, FeatureStrip, Sandwiches, Aisles, Visit, Reviews, Family, Footer,
+/* global React, ReactDOM, Marquee, Nav, Hero, FeatureStrip, Sandwiches, BobaMenu, Aisles, Visit, Reviews, Family, Footer,
    TweaksPanel, useTweaks, TweakSection, TweakColor, TweakRadio, TweakToggle */
 const { useEffect } = React;
 
@@ -83,6 +83,7 @@ function App() {
       <Hero sticker={t.showSticker} />
       <FeatureStrip />
       <Sandwiches />
+      <BobaMenu />
       <Aisles />
       <Visit />
       <Reviews />
