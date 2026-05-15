@@ -77,6 +77,7 @@ function Nav() {
   }, []);
   const items = [
     ["Sandwiches", "#sandwiches"],
+    ["Boba", "#boba"],
     ["Aisles", "#aisles"],
     ["Visit", "#visit"],
     ["The Family", "#family"],
