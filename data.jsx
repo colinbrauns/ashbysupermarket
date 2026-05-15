@@ -20,16 +20,17 @@ const ORDER_LINKS = [
   { name: "Grubhub", href: "https://www.grubhub.com/restaurant/ashby-super-market-2948-martin-luther-king-jr-way-berkeley/2691960", note: "Delivery + pickup" },
   { name: "DoorDash", href: "https://www.doordash.com/store/ashby-super-market-berkeley-1272966/", note: "Delivery + pickup" },
   { name: "Uber Eats", href: "https://www.ubereats.com/store/ashby-super-market/ySHmgI3tW-aAUeIDgGE0iQ", note: "Delivery availability varies" },
+  { name: "Snackpass", href: "https://www.snackpass.co/get", note: "Order in the app" },
 ];
 
 const SANDWICHES = [
-  { n: "01", name: "California Dreaming", price: "from $10.99", desc: "Boar's Head cracked pepper turkey, provolone, avocado, tomato, mayo · focaccia", tag: "house" },
-  { n: "02", name: "Roast Beef Hero", price: "from $11.99", desc: "Boar's Head deluxe roast beef, pepperjack, tomato, onion, lettuce · roll", tag: "hot" },
-  { n: "03", name: "Classic Pastrami", price: "from $11.99", desc: "Boar's Head pastrami, Swiss, mustard · rye", tag: "hot" },
-  { n: "04", name: "Cracked Pepper Turkey Reuben", price: "from $11.99", desc: "Cracked pepper turkey, Swiss, Reuben-style build · rye", tag: "hot" },
-  { n: "05", name: "Tuna Melt", price: "from $11.99", desc: "Fresh tuna salad, your choice of bread, toppings, and cheese", tag: "hot" },
-  { n: "06", name: "Self Created Sandwich", price: "from $10.99", desc: "Build it your way. Pick the meat, the cheese, the bread, and the works.", tag: "byo" },
-  { n: "07", name: "Falafel Wrap", price: "from $10.99", desc: "Three falafel, hummus, salad, sriracha if selected, olive oil, spice · pita", tag: "veg" },
+  { n: "01", name: "California Dreaming", desc: "Boar's Head cracked pepper turkey, provolone, avocado, tomato, mayo · focaccia", tag: "house" },
+  { n: "02", name: "Roast Beef Hero", desc: "Boar's Head deluxe roast beef, pepperjack, tomato, onion, lettuce · roll", tag: "hot" },
+  { n: "03", name: "Classic Pastrami", desc: "Boar's Head pastrami, Swiss, mustard · rye", tag: "hot" },
+  { n: "04", name: "Cracked Pepper Turkey Reuben", desc: "Cracked pepper turkey, Swiss, Reuben-style build · rye", tag: "hot" },
+  { n: "05", name: "Tuna Melt", desc: "Fresh tuna salad, your choice of bread, toppings, and cheese", tag: "hot" },
+  { n: "06", name: "Self Created Sandwich", desc: "Build it your way. Pick the meat, the cheese, the bread, and the works.", tag: "byo" },
+  { n: "07", name: "Falafel Wrap", desc: "Three falafel, hummus, salad, sriracha if selected, olive oil, spice · pita", tag: "veg" },
 ];
 
 const BUILD_OPTIONS = [
@@ -46,7 +47,7 @@ const AISLES = [
   { row: "D", label: "Pantry & Staples", items: ["Pasta", "Rice", "Beans", "Olive oil", "Snacks", "Cereal", "Gluten-free shelf", "Spices"] },
   { row: "E", label: "Beer & Wine", items: ["Local IPAs", "Lagers", "House reds", "Crisp whites", "Pet-nat (sometimes)", "Mini bottles"] },
   { row: "F", label: "Household", items: ["Paper goods", "Cleaning", "Foil & wrap", "Trash bags", "Toothpaste", "Dish soap"] },
-  { row: "G", label: "Lottery & Lotto", items: ["Powerball", "Mega Millions", "Scratchers", "Daily draws", "We sold a $500 winner once."] },
+  { row: "G", label: "Lottery & Lotto", items: ["Powerball", "Mega Millions", "Scratchers", "Daily draws", "We sold a winner once."] },
   { row: "H", label: "The Boba Stand", items: ["Matcha latte", "Classic milk tea", "Double boba", "Brown sugar", "Taro", "New: oat option"] },
 ];
 
@@ -56,7 +57,7 @@ const FEATURES = [
   { k: "Lottery", v: "Powerball, Mega, Scratchers." },
   { k: "Organic Produce", v: "Small but mighty selection." },
   { k: "Exotic Sodas", v: "A whole wall of bottles." },
-  { k: "Delivery", v: "Grubhub · DoorDash · Uber Eats." },
+  { k: "Delivery", v: "Grubhub · DoorDash · Uber Eats · Snackpass." },
 ];
 
 const REVIEWS = [

@@ -61,6 +61,31 @@ function Sandwiches() {
         </div>
 
         <div style={{
+          margin: isMobile ? "-8px 0 20px" : "-14px 0 24px",
+          padding: isMobile ? "12px 14px" : "14px 18px",
+          border: "1px solid rgba(242,234,217,0.35)",
+          background: "var(--mustard)",
+          color: "var(--ink)",
+          display: "flex",
+          alignItems: "baseline",
+          justifyContent: "space-between",
+          gap: 12,
+          flexWrap: "wrap",
+        }}>
+          <span className="mono upper" style={{ fontSize: 10, letterSpacing: "0.12em", opacity: 0.72 }}>
+            Sandwich prices
+          </span>
+          <span style={{
+            fontFamily: "var(--display)",
+            fontSize: isMobile ? 26 : 32,
+            lineHeight: 1,
+            letterSpacing: 0,
+          }}>
+            $10.99 cold, $11.99 hot
+          </span>
+        </div>
+
+        <div style={{
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
           gap: 0,
@@ -77,7 +102,7 @@ function Sandwiches() {
                   borderRight: isMobile || right ? "none" : "1px solid rgba(242,234,217,0.25)",
                   borderBottom: isMobile ? (i < SANDWICHES.length - 1 ? "1px solid rgba(242,234,217,0.25)" : "none") : (i < SANDWICHES.length - 2 ? "1px solid rgba(242,234,217,0.25)" : "none"),
                   display: "grid",
-                  gridTemplateColumns: isMobile ? "34px minmax(0, 1fr)" : "48px 1fr auto",
+                  gridTemplateColumns: isMobile ? "34px minmax(0, 1fr)" : "48px minmax(0, 1fr)",
                   gap: isMobile ? 12 : 18,
                   alignItems: "start",
                   background: hover === i ? "rgba(210,75,58,0.08)" : "transparent",
@@ -97,17 +122,6 @@ function Sandwiches() {
                   <div style={{ fontSize: 14, opacity: 0.75, lineHeight: 1.5, maxWidth: 440 }}>
                     {s.desc}
                   </div>
-                </div>
-                <div style={{
-                  fontFamily: "var(--mono)",
-                  fontSize: 14,
-                  whiteSpace: "nowrap",
-                  paddingTop: isMobile ? 0 : 8,
-                  color: "var(--tomato)",
-                  gridColumn: isMobile ? "2" : "auto",
-                  gridRow: isMobile ? "2" : "auto",
-                }}>
-                  {s.price}
                 </div>
               </div>
             );
