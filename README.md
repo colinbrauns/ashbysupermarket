@@ -13,7 +13,7 @@ This is a plain static site — no build step.
    - **Source**: Deploy from a branch
    - **Branch**: `main` · `/ (root)`
 3. Wait ~1 minute. Your site will be live at the URL shown on that page.
-4. Public domain planned: `https://ashbysupermarket.com/`. Keep the GitHub Pages preview URL until the `CNAME` and DNS settings are ready.
+4. Current Pages URL: `https://colinbrauns.github.io/ashbysupermarket/`. Do not add a `CNAME` until the custom domain is ready.
 
 The `.nojekyll` file is included so GitHub Pages serves files starting with `_` correctly and skips Jekyll processing.
 

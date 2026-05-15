@@ -2,7 +2,7 @@
 const STORE = {
   name: "Ashby Super Market",
   est: 2009, // approximate — "over a decade" per listings
-  url: "https://ashbysupermarket.com/",
+  url: "https://colinbrauns.github.io/ashbysupermarket/",
   address: "2948 Martin Luther King Jr Way",
   cityLine: "Berkeley, California 94703",
   neighborhood: "South Berkeley",
@@ -10,7 +10,7 @@ const STORE = {
   phone: "(510) 647-3672",
   phoneTel: "+15106473672",
   hoursLine: "Open daily · 9am-10pm",
-  domain: "ashbysupermarket.com",
+  domain: "colinbrauns.github.io/ashbysupermarket",
   instagram: "@ashbysupermarket",
   mapsUrl: "https://maps.app.goo.gl/CaLkuAG8eCPEsbvp9",
   yelpUrl: "https://www.yelp.com/biz/ashby-super-market-berkeley",

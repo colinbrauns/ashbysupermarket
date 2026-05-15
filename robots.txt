@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ashbysupermarket.com/sitemap.xml
+Sitemap: https://colinbrauns.github.io/ashbysupermarket/sitemap.xml
